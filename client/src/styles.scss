@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body { height: 100%; overflow-y: visible; }
+body { padding: 0; margin: 0; font-family: "Helvetica Neue", sans-serif; }
+h1, h2 {
+    height: fit-content;
+    margin: 0 !important;
+}
+
+.test {
+    background-color: white !important;
+}
+
+.white-snackbar {
+    /*
+        Not working in angular material 16
+        --mat-mdc-snack-bar-button-color: green;
+    */
+    --mdc-snackbar-container-color: white;
+    --mdc-snackbar-supporting-text-color: black;
+}
+
+.black-snackbar {
+    --mdc-snackbar-container-color: black;
+    --mdc-snackbar-supporting-text-color: white;
+}
+
+.ui-material-spacer {
+    flex: auto;
+}
+
+.ui-icon {
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+
+    &:hover {
+        transform: scale(0.9, 0.9);
+    }
+}

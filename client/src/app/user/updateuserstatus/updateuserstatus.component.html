@@ -1,0 +1,45 @@
+<mat-card class="user-panel">
+    <span><b>Manage User</b></span>
+</mat-card>
+
+<mat-card style="padding: 10px;">
+    <mat-form-field appearance="fill">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)"/>
+    </mat-form-field>
+</mat-card>
+
+<div>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="contact">
+            <th mat-header-cell *matHeaderCellDef>Contact</th>
+            <td mat-cell *matCellDef="let element">{{element.contactNumber}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element" class="action-buttons">
+
+                <mat-slide-toggle 
+                    (change)="updateUserStatus($event.checked, element.id)"
+                    matTooltip="Update Status"
+                    [checked]="element.status">
+                </mat-slide-toggle>
+            </td>
+        </ng-container>
+
+        <!-- This matHeaderRowDef directive could be optional in Angular 16-->
+        <tr mat-header-row *matHeaderRowDef="tableColumnHeaders"></tr>
+        <tr mat-row *matRowDef="let data; columns: tableColumnHeaders"></tr>
+    </table>
+</div>

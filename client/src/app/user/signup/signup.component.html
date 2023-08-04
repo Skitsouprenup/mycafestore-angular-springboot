@@ -1,0 +1,133 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Signup</span>
+      <span class="ui-material-spacer"></span>
+      <button 
+        mat-icon-button 
+        mat-dialog-close
+        class="ui-icon">
+        <mat-icon style="color: white;">close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="signupForm">
+        <div fxFlex fxLayout="column">
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required/>
+                <mat-error 
+                *ngIf="signupForm.controls.name.touched &&
+                       signupForm.controls.name.invalid">
+                    <span *ngIf="signupForm.controls.name.errors.required">
+                        This field must have a value
+                    </span>
+                    <span *ngIf="signupForm.controls.name.errors.pattern">
+                        This field has invalid input
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required/>
+                <mat-error 
+                *ngIf="signupForm.controls.email.touched &&
+                       signupForm.controls.email.invalid">
+                    <span *ngIf="signupForm.controls.email.errors.required">
+                        This field must have a value
+                    </span>
+                    <span *ngIf="signupForm.controls.email.errors.pattern">
+                        This field has invalid input
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="contactNumber" required/>
+                <mat-error 
+                *ngIf="signupForm.controls.contactNumber.touched &&
+                       signupForm.controls.contactNumber.invalid">
+                    <span *ngIf="signupForm.controls.contactNumber.errors.required">
+                        This field must have a value
+                    </span>
+                    <span *ngIf="signupForm.controls.contactNumber.errors.pattern">
+                        This field has invalid input
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Password</mat-label>
+                <input 
+                    matInput 
+                    formControlName="password"
+                    [type]="showPass ? 'text' : 'password'"
+                    required/>
+                <button 
+                    type="button" mat-icon-button matSuffix 
+                    (click)="showPass = !showPass"
+                    aria-label="Toggle Show/Hide Password"
+                    aria-pressed="password"
+                    class="ui-icon">
+                    <mat-icon>
+                        {{ showPass ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                </button>
+                <mat-error 
+                *ngIf="signupForm.controls.password.touched &&
+                       signupForm.controls.password.invalid">
+                    <span *ngIf="signupForm.controls.password.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Confirm Password</mat-label>
+                <input 
+                    matInput 
+                    formControlName="confirmPassword"
+                    [type]="showConfirmPass ? 'text' : 'password'"
+                    required/>
+                <button 
+                    type="button" mat-icon-button matSuffix 
+                    (click)="showConfirmPass = !showConfirmPass"
+                    aria-label="Toggle Show/Hide Confirm Password"
+                    aria-pressed="confirm password"
+                    class="ui-icon">
+                    <mat-icon>
+                        {{ showConfirmPass ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                </button>
+                <mat-error 
+                *ngIf="signupForm.controls.confirmPassword.touched &&
+                       signupForm.controls.confirmPassword.invalid">
+                    <span *ngIf="signupForm.controls.confirmPassword.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+                <mat-hint 
+                    *ngIf="!validatePassword() && !signupForm.controls.confirmPassword.invalid"
+                    class="mat-hint">
+                    <span>Password confirmation failed</span>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+
+        <mat-dialog-actions align="end" style="padding: 0;">
+            <button 
+                mat-raised-button 
+                color="primary" type="submit"
+                (click)="submitForm()"
+                [disabled]="!validatePassword() || !(signupForm.dirty && signupForm.valid)">
+                <mat-icon fontIcon="save"></mat-icon> <span>Signup</span>
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">
+                <mat-icon fontIcon="cancel"></mat-icon> <span>Close</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

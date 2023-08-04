@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Change Password</span>
+      <span class="ui-material-spacer"></span>
+      <button 
+        mat-icon-button 
+        mat-dialog-close
+        class="ui-icon">
+        <mat-icon style="color: white;">close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="changePassForm">
+        <div fxFlex fxLayout="column" *ngFor="let field of passwordFields">
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>{{ field.label }}</mat-label>
+                <input 
+                    matInput 
+                    [formControlName]="field.controlName"
+                    [type]="field.visible ? 'text' : 'password'"
+                    required/>
+                <button 
+                    type="button" mat-icon-button matSuffix 
+                    (click)="field.visible = !field.visible"
+                    aria-label="field.ariaLabel"
+                    aria-pressed="field.ariaPressed"
+                    class="ui-icon">
+                    <mat-icon>
+                        {{ field.visible ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                </button>
+                <mat-error *ngIf="field.invalidCondition">
+                    <span *ngIf="field.requiredCondition">
+                        This field must have a value
+                    </span>
+                </mat-error>
+                <mat-hint 
+                    *ngIf="field.controlName === 'confirmNewPassword' && 
+                        !validatePassword() && 
+                        !changePassForm.controls.confirmNewPassword.invalid"
+                    class="mat-hint">
+                    <span>Password confirmation failed</span>
+                </mat-hint>
+            </mat-form-field>
+
+        </div>
+
+        <mat-dialog-actions align="end" style="padding: 0">
+            <button 
+                mat-raised-button 
+                color="primary" type="submit"
+                (click)="submitForm()"
+                [disabled]="!validatePassword() || !(changePassForm.dirty && changePassForm.valid)">
+                <mat-icon fontIcon="send"></mat-icon> <span>Retrieve Password</span>
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">
+                <mat-icon fontIcon="cancel"></mat-icon> <span>Close</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

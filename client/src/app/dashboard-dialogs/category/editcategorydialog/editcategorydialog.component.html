@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Edit Category</span>
+      <span class="ui-material-spacer"></span>
+      <button 
+        mat-icon-button 
+        mat-dialog-close
+        class="ui-icon">
+        <mat-icon style="color: white;">close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="editCategoryForm">
+        <div fxFlex fxLayout="column">
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required />
+                <mat-error 
+                *ngIf="editCategoryForm.controls.name.touched &&
+                       editCategoryForm.controls.name.invalid">
+                    <span *ngIf="editCategoryForm.controls.name.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-dialog-actions align="end" style="padding: 0">
+            <button 
+                mat-raised-button 
+                color="primary" type="submit"
+                (click)="submitForm()"
+                [disabled]="!(editCategoryForm.dirty && editCategoryForm.valid)">
+                <mat-icon fontIcon="check"></mat-icon> <span>Accept</span>
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">
+                <mat-icon fontIcon="cancel"></mat-icon> <span>Close</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

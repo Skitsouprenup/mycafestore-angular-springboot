@@ -1,0 +1,60 @@
+@mixin text($direction){
+    flex-grow: 2;
+    flex-basis: 0px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: $direction;
+}
+
+@mixin image-content {
+    flex-grow: 1;
+    flex-basis: 0px;
+
+    position: relative;
+    padding: 15px 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .image {
+        border-radius: 100%;
+        width: 150px;
+        height: 150px;
+        z-index: 10;
+    }
+
+    .timeline-pipe-start {
+        @include timeline-pipe;
+    
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .timeline-pipe {
+        @include timeline-pipe;
+    }
+
+    .timeline-pipe-end {
+        @include timeline-pipe;
+        
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+}
+
+@mixin timeline-pipe {
+    width: 15px;
+    height: 100%;
+    position: absolute;
+    background-color: gray;
+    z-index: -10;
+}
+
+@mixin blank {
+    flex-grow: 2;
+    flex-basis: 0px;
+}

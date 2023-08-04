@@ -1,0 +1,95 @@
+$side-bar-max-width: 925px;
+
+main {
+
+    display: flex;
+    flex-direction: column;
+
+    .left-side-fixed {
+        left: 0;
+        width: 300px;
+        height: 100%;
+        position: fixed;
+        box-shadow: 3px 0px 3px lightgray;
+
+        @media only screen and (max-width: $side-bar-max-width) {
+            position: relative;
+            width: auto;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0px 3px 3px lightgray;
+        }
+
+        /* top: 55px is the height of the navbar 
+           need to offset the top part because the
+           parent div overlaps the navbar
+        */
+        .dashboard-accordion {
+
+            position: relative; 
+            top: 55px;
+            padding: 5px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 5px;
+
+            @media only screen and (max-width: $side-bar-max-width) {
+                top: 0;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .item {
+                display: block;
+                border: solid 1px #ccc;
+                padding: 10px;
+                font-size: 1.2rem;
+
+                color: black;
+
+                @media only screen and (max-width: $side-bar-max-width) {
+                    width: 200px;
+                }
+
+                .btn-toggle {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 5px;
+                    cursor: pointer;
+                }
+
+                .item-list {
+                    border-radius: 5px;
+                    background-color: whitesmoke;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+
+        .left-side {
+            flex-basis: 300px;
+
+            @media only screen and (max-width: $side-bar-max-width) {
+                display: none;
+            }
+        }
+    
+        .right-side {
+            flex: 1 1 0px;
+            padding: 10px;
+        }
+    }
+}
+
+.item-selected {
+    color: white !important;
+    background-color: #7b1fa2;
+}

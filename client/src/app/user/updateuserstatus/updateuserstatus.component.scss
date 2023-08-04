@@ -1,0 +1,15 @@
+.user-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}

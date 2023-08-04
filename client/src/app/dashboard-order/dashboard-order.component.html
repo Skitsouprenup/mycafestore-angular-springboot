@@ -1,0 +1,206 @@
+<mat-card class="manage-order-panel">
+    <span><b>Manage Order</b></span>
+    <button 
+        mat-flat-button 
+        color="primary"
+        (click)="placeOrderAndGenerateBill()"
+        [disabled]="!dataSource.data.length">
+        <mat-icon>print</mat-icon>Place Order & Get Bill
+    </button>
+</mat-card>
+
+<mat-card>
+    <span style="margin-bottom: 5px;"><b>Customer Details</b></span>
+    <form [formGroup]="orderForm">
+        <div fxFlex class="row-fields">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="customerName" required/>
+                <mat-error 
+                *ngIf="orderForm.controls.customerName.touched &&
+                       orderForm.controls.customerName.invalid">
+                    <span *ngIf="orderForm.controls.customerName.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required/>
+                <mat-error 
+                *ngIf="orderForm.controls.email.touched &&
+                       orderForm.controls.email.invalid">
+                    <span *ngIf="orderForm.controls.email.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex class="row-fields">
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="contactNumber" required/>
+                <mat-error 
+                *ngIf="orderForm.controls.contactNumber.touched &&
+                       orderForm.controls.contactNumber.invalid">
+                    <span *ngIf="orderForm.controls.contactNumber.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Payment Method</mat-label>
+                <mat-select formControlName="paymentMethod">
+                    <mat-option *ngFor="let item of paymentMethods" [value]="item">
+                        {{ item }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-card>
+
+<mat-card style="margin: 10px 0px;">
+    <span style="margin-bottom: 5px;"><b>Select Product</b></span>
+    <form [formGroup]="orderForm">
+        <div fxFlex class="row-fields">
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select 
+                    formControlName="productCategory">
+                    <mat-option 
+                        *ngFor="let item of categories; let i = index;" 
+                        [value]="item?.id"
+                        (click)="filterProductChoices(i)">
+                        {{ item?.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Product</mat-label>
+                <mat-select
+                    [value]="filteredProducts && filteredProducts.length ?
+                             filteredProducts[0].id : null" 
+                    formControlName="productName">
+                    <mat-option 
+                        *ngFor="let item of filteredProducts; let i = index" 
+                        [value]="item?.id"
+                        (click)="displayPrice(item?.price)">
+                        {{ item?.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex class="row-fields">
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" required/>
+                <mat-error 
+                *ngIf="orderForm.controls.price.touched &&
+                       orderForm.controls.price.invalid">
+                    <span *ngIf="orderForm.controls.price.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Quantity</mat-label>
+                <input 
+                    matInput 
+                    formControlName="quantity" 
+                    required
+                    (keyup)="computeSubTotal()"/>
+                <mat-error 
+                *ngIf="orderForm.controls.quantity.touched &&
+                       orderForm.controls.quantity.invalid">
+                    <span *ngIf="orderForm.controls.quantity.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Total</mat-label>
+                <input 
+                    matInput 
+                    formControlName="total" 
+                    required/>
+            </mat-form-field>
+        </div>
+
+        <!--
+            Note: disabled FormControl are not validated
+            thus, isDirty and invalid property may not
+            work as expected
+        -->
+        <div class="select-product-buttons">
+            <button 
+                mat-flat-button 
+                color="primary"
+                (click)="addProduct()"
+                [disabled]="!orderForm.isDirty && orderForm.invalid">
+                <mat-icon>add_circle</mat-icon> Add
+            </button>
+
+            <div 
+                class="total"
+                [style.visibility]="dataSource.data.length ? 'visible' : 'hidden'">
+                <mat-icon>monetization_on</mat-icon> Total: {{ computeOrderTotal().toFixed(2) }}
+            </div>
+        </div>
+    </form>
+</mat-card>
+
+<div>
+    <span ><b>Selected Products</b></span>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{element.category}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let element">{{element.price}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            <td mat-cell *matCellDef="let element">{{element.total}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element" class="action-buttons">
+                <button 
+                    mat-icon-button 
+                    color="primary" 
+                    matTooltip="Delete"
+                    matTooltipPosition="right"
+                    (click)="deleteProduct(element.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <!-- This matHeaderRowDef directive could be optional in Angular 16-->
+        <tr mat-header-row *matHeaderRowDef="tableColumnHeaders"></tr>
+        <tr mat-row *matRowDef="let data; columns: tableColumnHeaders"></tr>
+    </table>
+</div>

@@ -1,0 +1,117 @@
+<main>
+    <app-logged-in-navbar 
+        style="z-index: 1000;position: sticky;top: 0;">
+    </app-logged-in-navbar>
+
+    <div class="left-side-fixed">
+        <!--
+            Should be mat-list not cdk-accordion....
+            oh well...
+        -->
+        <cdk-accordion class="dashboard-accordion">
+            <cdk-accordion-item
+                *ngIf="auth.getRoleFromTokenLocal() === 'admin'"
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'Dashboard'"
+                role="button"
+                tabindex="0">
+                <div
+                    (click)="setSidebarButtonActive('Dashboard')"
+                    class="btn-toggle">
+                   <mat-icon>dashboard</mat-icon> Dashboard  
+                </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+                *ngIf="auth.getRoleFromTokenLocal() === 'admin'"
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'Category'"
+                role="button"
+                tabindex="1">
+                <div 
+                    (click)="setSidebarButtonActive('Category')"
+                    class="btn-toggle">
+                   <mat-icon>category</mat-icon> Category
+                </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+                *ngIf="auth.getRoleFromTokenLocal() === 'admin'"
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'Product'"
+                role="button"
+                tabindex="2">
+                <div 
+                    (click)="setSidebarButtonActive('Product')"
+                    class="btn-toggle">
+                   <mat-icon>inventory_2</mat-icon> Product
+                </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'Order'"
+                role="button"
+                tabindex="3">
+                <div 
+                    (click)="setSidebarButtonActive('Order')"
+                    class="btn-toggle">
+                   <mat-icon>shopping_cart</mat-icon> Order
+                </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'Bill'"
+                role="button"
+                tabindex="4">
+                <div 
+                    (click)="setSidebarButtonActive('Bill')"
+                    class="btn-toggle">
+                   <mat-icon>backup_table</mat-icon> Bill
+                </div>
+            </cdk-accordion-item>
+
+            <cdk-accordion-item
+                *ngIf="auth.getRoleFromTokenLocal() === 'admin'"
+                class="item"
+                [class.item-selected]="activeSidebarBtn === 'User'"
+                role="button"
+                tabindex="5">
+                <div 
+                    (click)="setSidebarButtonActive('User')"
+                    class="btn-toggle">
+                   <mat-icon>people</mat-icon> User
+                </div>
+            </cdk-accordion-item>
+        </cdk-accordion>
+    </div>
+    <div class="content">
+        <div class="left-side"></div>
+        <div class="right-side">
+            <app-dashboard-stats
+                *ngIf="activeSidebarBtn === 'Dashboard'">
+            </app-dashboard-stats>
+
+            <app-dashboard-category
+                *ngIf="activeSidebarBtn === 'Category'">
+            </app-dashboard-category>
+
+            <app-dashboard-product
+                *ngIf="activeSidebarBtn === 'Product'">
+            </app-dashboard-product>
+
+            <app-dashboard-order
+                *ngIf="activeSidebarBtn === 'Order'">
+            </app-dashboard-order>
+
+            <app-dashboard-bill-view
+                *ngIf="activeSidebarBtn === 'Bill'">
+            </app-dashboard-bill-view>
+
+            <app-updateuserstatus
+                *ngIf="activeSidebarBtn === 'User'">
+            </app-updateuserstatus>
+        </div>
+    </div>
+</main>

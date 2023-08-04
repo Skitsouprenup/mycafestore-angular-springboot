@@ -1,0 +1,32 @@
+.logged-in-navbar {
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #7b1fa2;
+        padding: 0 10px;
+        height: 55px;
+    }
+      
+    .mat-icon {
+        vertical-align: middle;
+    }
+    
+    .left-buttons {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            text-decoration: none;
+            color: #ffffff;
+            position: relative;
+            font-size: 1.25em;
+            cursor: pointer;
+            height: fit-content;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+    }
+}

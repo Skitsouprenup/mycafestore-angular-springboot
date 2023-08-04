@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Forgot Password?</span>
+      <span class="ui-material-spacer"></span>
+      <button 
+        mat-icon-button 
+        mat-dialog-close
+        class="ui-icon">
+        <mat-icon style="color: white;">close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="forgotPassForm">
+        <div fxFlex fxLayout="column">
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required/>
+                <mat-error 
+                *ngIf="forgotPassForm.controls.email.touched &&
+                       forgotPassForm.controls.email.invalid">
+                    <span *ngIf="forgotPassForm.controls.email.errors.required">
+                        This field must have a value
+                    </span>
+                    <span *ngIf="forgotPassForm.controls.email.errors.pattern">
+                        This field has invalid input
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <mat-dialog-actions align="end" style="padding: 0">
+            <button 
+                mat-raised-button 
+                color="primary" type="submit"
+                (click)="submitForm()"
+                [disabled]="!(forgotPassForm.dirty && forgotPassForm.valid)">
+                <mat-icon fontIcon="send"></mat-icon> <span>Retrieve Password</span>
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">
+                <mat-icon fontIcon="cancel"></mat-icon> <span>Close</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

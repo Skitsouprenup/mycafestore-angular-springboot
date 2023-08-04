@@ -1,0 +1,36 @@
+<div class="logged-in-navbar">
+    <nav style="z-index: 1000;">
+      <div class="left-buttons">
+        <span class="logo">
+          <mat-icon>storefront</mat-icon> <span>My Cafe Store</span>
+        </span>
+      </div>
+
+      <button 
+        [matMenuTriggerFor]="profile" 
+        mat-icon-button
+        aria-label="profile menu">
+          <span style="display: flex; align-items: center;">
+            <mat-icon 
+              style="transform: scale(1.25); color: white;">
+              account_circle
+            </mat-icon>
+          </span>
+      </button>
+
+      <mat-menu #profile="matMenu">
+        <button 
+          mat-menu-item
+          (click)="showChangePassDialog()">
+          <mat-icon>key</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <button 
+          mat-menu-item
+          (click)="showLogoutDialog()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </nav>
+</div>

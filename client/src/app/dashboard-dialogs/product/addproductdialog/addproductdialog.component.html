@@ -1,0 +1,84 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Add Product</span>
+      <span class="ui-material-spacer"></span>
+      <button 
+        mat-icon-button 
+        mat-dialog-close
+        class="ui-icon">
+        <mat-icon style="color: white;">close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content>
+    <form [formGroup]="addProductForm">
+        <div fxFlex fxLayout="column">
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required/>
+                <mat-error 
+                *ngIf="addProductForm.controls.name.touched &&
+                       addProductForm.controls.name.invalid">
+                    <span *ngIf="addProductForm.controls.name.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="price-category-fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Price</mat-label>
+                    <input matInput formControlName="price" required/>
+                    <mat-error 
+                    *ngIf="addProductForm.controls.price.touched &&
+                           addProductForm.controls.price.invalid">
+                        <span *ngIf="addProductForm.controls.name.errors.required">
+                            This field must have a value
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="categoryId">
+                        <mat-option *ngFor="let category of data" [value]="category.id">
+                            {{ category.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Description</mat-label>
+                <textarea matInput
+                    cdkTextareaAutosize
+                    #autosize
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5"
+                    formControlName="description"></textarea>
+                <mat-error 
+                *ngIf="addProductForm.controls.description.touched &&
+                       addProductForm.controls.description.invalid">
+                    <span *ngIf="addProductForm.controls.name.errors.required">
+                        This field must have a value
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-dialog-actions align="end" style="padding: 0">
+            <button 
+                mat-raised-button 
+                color="primary" type="submit"
+                (click)="submitForm()"
+                [disabled]="!(addProductForm.dirty && addProductForm.valid)">
+                <mat-icon fontIcon="add"></mat-icon> <span>Add</span>
+            </button>
+            <button mat-raised-button color="warn" mat-dialog-close type="button">
+                <mat-icon fontIcon="cancel"></mat-icon> <span>Close</span>
+            </button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

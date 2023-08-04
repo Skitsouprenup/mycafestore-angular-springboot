@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <span>Do you wanna delete {{ data.productName }}?</span>
+      <span class="ui-material-spacer"></span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-actions align="end">
+    <button 
+        mat-raised-button 
+        color="primary"
+        (click)="deleteProduct()">
+        <mat-icon fontIcon="check"></mat-icon> <span>Accept</span>
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close type="button">
+        <mat-icon fontIcon="cancel"></mat-icon> <span>Cancel</span>
+    </button>
+</mat-dialog-actions>

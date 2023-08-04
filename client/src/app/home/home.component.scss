@@ -1,0 +1,119 @@
+@import 'timeline-content';
+
+.home-container {
+
+    display: flex;
+    flex-direction: column;
+
+    footer {
+        color: white;
+        background: #7b1fa2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+    }
+    
+    main {
+        flex-grow: 1;
+
+        .bg-image {
+            background-image: url("https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80");
+            box-shadow: 0 9px 6px -8px black;
+            height: 300px; 
+            
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .timeline-content {
+            display:flex;
+            flex-direction: column;
+            row-gap: 10px;
+            margin: 10px 0;
+
+            .header {
+                display:flex;
+                justify-content: center;
+            }
+
+            .timeline {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+
+                .row-left-right {
+
+                    display: flex;
+                    padding: 0 10px;
+
+                    .text { @include text(right); }
+                    .image-content { @include image-content; }
+                    .blank { @include blank; }
+                }
+
+                .row-right-left {
+                    display: flex;
+                    flex-direction: row-reverse;
+                    padding: 0 10px;
+
+                    .text { @include text(left); }
+                    .image-content { @include image-content; }
+                    .blank { @include blank; }
+
+                }
+
+            }
+        }
+    }
+
+    nav {
+        position: sticky;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        top: 0;
+        background: #7b1fa2;
+        padding: 0 10px;
+        height: 55px;
+    }
+      
+    .mat-icon {
+        vertical-align: middle;
+    }
+    
+    .logo {
+        text-decoration: none;
+        color: #ffffff;
+        position: relative;
+        font-size: 1.25em;
+        cursor: pointer;
+        height: fit-content;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+    ul {
+
+        display: flex;
+        gap: 5px;
+
+        .vertical-rule {
+            color: white;
+            list-style: none;
+        }
+
+        .clickable {
+            font-size: 1.1rem;
+            color: white;
+            list-style: none;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
