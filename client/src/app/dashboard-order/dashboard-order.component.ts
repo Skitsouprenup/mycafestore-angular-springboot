@@ -58,7 +58,7 @@ export class DashboardOrderComponent implements OnInit{
       return
     }
 
-    this.orderForm = orderFormGroup(this.formBuilder)
+    this.orderForm = orderFormGroup(this.formBuilder, this.auth.getUsernameFromTokenLocal())
 
     this.productService.getProducts(token).subscribe({
 

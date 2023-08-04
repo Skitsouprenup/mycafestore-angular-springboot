@@ -1,7 +1,7 @@
 import { FormBuilder, Validators } from "@angular/forms"
 import { GlobalConstants } from "src/scripts/global_constants"
 
-const orderFormGroup = (formBuilder: FormBuilder) => {
+const orderFormGroup = (formBuilder: FormBuilder, username: string) => {
     const defaultFormControlState = { value: "", disabled: false }
 
     return formBuilder.group({
@@ -10,7 +10,7 @@ const orderFormGroup = (formBuilder: FormBuilder) => {
         [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]
       ],
       email: [
-        defaultFormControlState, 
+        { value: username, disabled: true }, 
         [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]
       ],
       contactNumber: [
