@@ -130,12 +130,13 @@ export class DashboardProductComponent implements OnInit{
     addProductDialog.componentInstance.onEdit.subscribe({
       next: (response: BackendProductObject) => {
         if(this.dataSource) {
+          console.log(response)
           const dataSourceCopy = this.dataSource.data
           for(let i = 0; i < dataSourceCopy.length; i++) {
             if(this.dataSource.data[i].id.toString() === response.id.toString())
               dataSourceCopy[i] = response
           }
-          this.dataSource = dataSourceCopy
+          this.dataSource.data = dataSourceCopy
         }
       },
       error: (error: any) => {

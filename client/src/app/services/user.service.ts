@@ -24,11 +24,12 @@ export class UserService {
       });
   }
 
-  changePass(payload: changePassPayload) {
+  changePass(token: string, payload: changePassPayload) {
     const endpoint = environment.apiUrl + '/users/password/change'
 
     return this.httpClient.patch(endpoint, payload, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
     });
   }
 

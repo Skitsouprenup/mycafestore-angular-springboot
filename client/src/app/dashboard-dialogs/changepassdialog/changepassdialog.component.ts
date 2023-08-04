@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 import { NgxUiLoaderService } from 'ngx-ui-loader'
+import { AuthService } from 'src/app/services/auth.service'
 import { SnackbarService } from 'src/app/services/snackbar.service'
 import { UserService } from 'src/app/services/user.service'
 import { GlobalConstants } from 'src/scripts/global_constants'
@@ -67,7 +68,8 @@ export class ChangepassdialogComponent implements OnInit{
     private userService: UserService,
     private snackBarService: SnackbarService,
     public dialogRef: MatDialogRef<ChangepassdialogComponent>,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -91,13 +93,20 @@ export class ChangepassdialogComponent implements OnInit{
     this.ngxService.start()
     this.dialogRef.close()
 
+    const token = this.auth.getTokenLocal()
+    if(!token) {
+      this.snackBarService.openSnackBar('Incomplete Authentication', 'error')
+      this.ngxService.stop()
+      return
+    }
+
     let formData = this.changePassForm.value
     let data: changePassPayload = {
       oldPass: formData.currentPassword,
       newPass: formData.newPassword
     }
 
-    this.userService.changePass(data).subscribe({
+    this.userService.changePass(token, data).subscribe({
 
       next: (response: any) => {
         const message = response?.message

@@ -182,8 +182,9 @@ public class UserServiceImpl implements UserService {
             User user = userDao.findByEmail(jwtFilter.getCurrentUser());
 
             if(user != null) {
-                if(user.getPassword().equals(requestMap.get("oldPass"))) {
-                    user.setPassword(requestMap.get("newPass"));
+                if(encryptionUtilities.decryptPassAes(user.getPassword())
+                        .equals(requestMap.get("oldPass"))) {
+                    user.setPassword(encryptionUtilities.encryptPassAes(requestMap.get("newPass")));
                     userDao.save(user);
 
                     String responseBody = "{\"message\": \""+ "Password has been updated." +"\"}";
