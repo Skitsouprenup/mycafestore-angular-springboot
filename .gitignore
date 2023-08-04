@@ -46,6 +46,7 @@ client/Thumbs.db
 #---Server---
 
 server/reports
+server/src/main/resources/application.properties
 
 server/HELP.md
 server/target/
