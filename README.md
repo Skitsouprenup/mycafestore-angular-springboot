@@ -1,7 +1,7 @@
 # mycafestore-angular-springboot
 A Simple and responsive Cafe Management System created using Angular and Spring Boot.
 
-I have a demo video of this project in this [link](https://youtu.be/YRDMfVawP1U)
+I have a demo video of this project in this [link](https://youtu.be/OqchjCIpULQ)
 
 # Technologies Used
 * **Javascript**
@@ -12,7 +12,7 @@ I have a demo video of this project in this [link](https://youtu.be/YRDMfVawP1U)
 * **Postgresql**
 
 # Testing this project
-You can clone this project and test it for yourself. However, you need to create *application.properties* in *server/src/main/resources/application.properties* directory and add these following variables:
+You can clone this project and test it for yourself. However, you need to create *application.properties* in *server/src/main/resources/* directory and add these following variables:
 
 ## Back-end
 
