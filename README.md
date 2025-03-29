@@ -1,7 +1,7 @@
 # mycafestore-angular-springboot
 A Simple and responsive Cafe Management System created using Angular and Spring Boot.
 
-I have a demo video of this project in this [link](https://youtu.be/OqchjCIpULQ)
+I have a demo video of this project in this [link](https://youtu.be/YWiADUZNp1c)
 
 # Technologies Used
 * **Javascript**
